@@ -1,0 +1,30 @@
+:root{
+    --branchcolor: black;
+    --zoomcolor: black;
+}
+
+.vocabulary-explorer {
+    font-size: 36px;
+    font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    margin: 50px 0;
+}
+
+.search-bar {
+    margin-left: 50px;
+    margin: 25px 0;
+}
+
+.rd3t-link{
+    stroke: var(--branchcolor) !important;
+}
+
+.zoomGroup .MuiButtonGroup-grouped:not(:last-of-type){
+    border-color: var(--zoomcolor) !important;
+}
+
+.zoomGroup .css-d4hd0p-MuiButtonBase-root-MuiButton-root{
+    color: var(--zoomcolor) !important;
+}
