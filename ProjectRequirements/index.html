@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://ualberta-cmput401.github.io/vocabulary-explorer/ProjectRequirements/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Project Requirements - Vocabulary Explorer Docs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Project Requirements";
+        var mkdocs_page_input_path = "ProjectRequirements.md";
+        var mkdocs_page_url = "/vocabulary-explorer/ProjectRequirements/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Vocabulary Explorer Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Welcome to vocabulary-explorer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../FinalDocumentation/">Final Documentation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../ProjectManagement/">Project Management</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Project Requirements</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#executive-summary">Executive Summary</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#project-glossary">Project Glossary</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#existing-itwewina-glossary">Existing Itwêwina glossary</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#user-stories">User Stories</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-epic-search">1. EPIC - Search</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#11-querying-3pts">[1.1]  Querying  (3pts)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#12-navigate-to-tree-5pts">[1.2]  Navigate to tree (5pts)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-epic-tree-interactions">2. EPIC - Tree interactions</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#21-expand-hypernyms-3pts">[2.1]  Expand hypernyms (3pts)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#22-expand-hyponyms-3pts">[2.2]  Expand hyponyms (3pts)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#23-select-from-hypernymshyponyms-5pts">[2.3]  Select from hypernyms/hyponyms (5pts)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#24-moving-around-tree-5pts">[2.4]  Moving around tree (5pts)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#25-see-node-details-5pts">[2.5]  See node details (5pts)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#26-node-colors-2pts">[2.6]  Node colors (2pts)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#27-breadcrumb-navigation-5pts">[2.7]  Breadcrumb navigation (5pts)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#28-tree-modes-5pts">[2.8]  Tree modes (5pts)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#29-get-root-node-8pts">[2.9]  Get root node (8pts)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#210-default-tree-5pts">[2.10] Default tree (5pts)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-epic-filtering">3. EPIC - Filtering</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#31-filter-search-results-3pts">[3.1]  Filter search results (3pts)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#32-filter-node-list-3pts">[3.2]  Filter node list (3pts)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#33-search-node-list-3pts">[3.3]  Search node list (3pts)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-epic-platforms">4. EPIC - Platforms</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#41-mobile-phone-8pts">[4.1]  Mobile phone (8pts)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#42-laptop-3pts">[4.2]  Laptop (3pts)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#43-tablet-5pts">[4.3]  Tablet (5pts)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5-epic-exporting-data">5. EPIC - Exporting data</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#51-export-csv-5pts">[5.1]  Export CSV (5pts)</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#moscow">MoSCoW</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#must-have">Must Have</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#should-have">Should Have</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#could-have">Could Have</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#would-like-but-wont-get">Would like But Won’t Get</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#similar-products">Similar Products</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#open-source-projects">Open-source Projects</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ualbertaaltlab">UAlbertaALTLab</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rapidwords">RapidWords</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#wordnet">WordNet</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#itwewina">Itwêwina</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#technical-resources">Technical Resources</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#frontend-reactjs-d3js">Frontend: React.js + D3.js</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#backend-django-sqlite3">Backend: Django + SQLite3</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#deployment-docker-nginx">Deployment: Docker + NGINX</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SoftwareDesign/">Software Design</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Teamwork/">Teamwork</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Vocabulary Explorer Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Project Requirements</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/UAlberta-CMPUT401/vocabulary-explorer/edit/master/docs/ProjectRequirements.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="project-requirements">Project Requirements</h1>
+<h2 id="executive-summary">Executive Summary</h2>
+<p>The vocabulary explorer is a way to explore information based on semantic class, or general meaning group. It will be based off of RapidWords or WordNet, which will be decided by the client closer to the time of development. The explorer allows users to expand or collapse different semantic classes in order to see which word(s) fall under that category. It will link to itwêwina in order to show paradigms when appropriate. </p>
+<p>Users will primarily be linguists and language learners. The explorer will present itself as an interactive graph with nodes that users can click on to expand a section further and gain more information. Graph nodes will be grouped based on semantic class and get more specific as the user clicks through. Each node will also display the word(s) we have in our dictionary that belong to that semantic class. Definitions can be linked at the word-level and direct the user to itwêwina.</p>
+<h2 id="project-glossary">Project Glossary</h2>
+<h3 id="existing-itwewina-glossary"><a href="https://github.com/UAlbertaALTLab/morphodict/blob/main/docs/glossary.md">Existing Itwêwina glossary</a></h3>
+<div class="admonition note">
+<p>English Mode - The display mode where English is used for the underlying structure of the tree. There may be nodes for which no Cree word exists included, linking Cree nodes.</p>
+<p>Cree Mode - The display mode where only Cree words will be displayed in the tree. Since the structure of the tree is still mapped onto English, these English nodes will be skipped over when displaying the tree.</p>
+<p><a href="https://semdom.org/">RapidWords</a> - A web-based tool for text summarization and keyword extraction. The website offers a user-friendly interface and allows users to upload documents or paste text directly into the website for summarization.</p>
+<p><a href="http://wordnetweb.princeton.edu/perl/webwn">WordNet</a> - A lexical database for the English language, developed by Princeton University. It organizes words into sets of synonyms and organizes them into semantic hierarchies, allowing for a better understanding of how words are related semantically. The website provides a user-friendly interface for accessing and exploring the WordNet database, allowing users to search for words and their definitions, synonyms, and related concepts.</p>
+<p><a href="https://itwewina.altlab.app/">Itwêwina</a> - A web-based platform for learning Cree, an indigenous language of Canada. The platform offers interactive lessons and exercises to help users learn the basics of Cree, including vocabulary, grammar, and pronunciation. It also features a variety of resources, including audio recordings, to help users improve their listening and speaking skills in the language.</p>
+<p>Hyponym - A word of more specific meaning than a general term applicable to it.</p>
+<p>Hypernym - A word with a broad meaning that more specific words fall under</p>
+<p>Breadcrumb - A small text path, indicating where the user is on the site</p>
+<p>Tag - A multicharacter symbol that represents a linguistic feature.</p>
+<p>Semantic Ontology - An ecosystem of words relating to each other based on their meaning.</p>
+<p>Tree - A tree is a hierarchical data structure defined as a collection of nodes.</p>
+</div>
+<h2 id="user-stories">User Stories</h2>
+<h3 id="1-epic-search">1. EPIC - Search</h3>
+<div class="admonition note">
+<p>As a user, I want to be able to search for a word.</p>
+</div>
+<h4 id="11-querying-3pts">[1.1]  Querying  (3pts)</h4>
+<p><ins class="critic">As a user, I want to be sent to a results page ranked by relevance to my search query.</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>User can search results are relevant to the searched term</li>
+<li>User can search results include a definition of each term</li>
+</ul>
+</div>
+<h4 id="12-navigate-to-tree-5pts">[1.2]  Navigate to tree (5pts)</h4>
+<p><ins class="critic">As a user, I want to click on a search result and it takes me to a tree of the word.</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>View Cree mode tree</li>
+<li>View English mode tree</li>
+<li>View RapidWords</li>
+<li>View Semantic Domains</li>
+</ul>
+</div>
+<h3 id="2-epic-tree-interactions">2. EPIC - Tree interactions</h3>
+<div class="admonition note">
+<p>As a user, I want to be able to explore the Cree language in the form of a tree.</p>
+</div>
+<h4 id="21-expand-hypernyms-3pts">[2.1]  Expand hypernyms (3pts)</h4>
+<p><ins class="critic">As a user, for a given node, if I click on the ‘+’ symbol I should see a list of hypernyms.</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>Seeing all hypernyms without any being missed</li>
+<li>Functional checkbox beside each item </li>
+<li>Hypernyms of sister words should not be displayed</li>
+</ul>
+</div>
+<h4 id="22-expand-hyponyms-3pts">[2.2]  Expand hyponyms (3pts)</h4>
+<p><ins class="critic">As a user, for a given node, if I click on the ‘-’ symbol I should see a list of hyponyms.</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>Seeing all hyponyms without any being missed</li>
+<li>Functional checkbox beside each item</li>
+<li>Hyponyms of sister words should not be displayed</li>
+</ul>
+</div>
+<h4 id="23-select-from-hypernymshyponyms-5pts">[2.3]  Select from hypernyms/hyponyms (5pts)</h4>
+<p><ins class="critic">As a user, I want to select words from the list of hypernyms/hyponyms and click done and see my selected terms displayed on the tree.</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>Selection and deselection need to be tracked</li>
+<li>Only selected words should be displayed in the tree</li>
+</ul>
+</div>
+<h4 id="24-moving-around-tree-5pts">[2.4]  Moving around tree (5pts)</h4>
+<p><ins class="critic">As a user, I want to move around the tree.</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>Button for zooming in/out zooms in and out by a certain amount</li>
+<li>Zooming in/out capped after a certain amount</li>
+<li>User should be able to freely move around the tree by holding right click and dragging</li>
+<li>A focus button need to included so user can reset view back to center of tree</li>
+<li>User should not be allowed to move too far away from the tree</li>
+</ul>
+</div>
+<h4 id="25-see-node-details-5pts">[2.5]  See node details (5pts)</h4>
+<p><ins class="critic">As a user, I want to be able to select/click on a node in the graph, to see details about that word.</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>As a user, I want to see the synonyms of the word in the details.</li>
+<li>As a user, I want to see the definition of the word in the details.</li>
+<li>As a user, I want to have a hyperlink to itwêwina, the plains Cree dictionary</li>
+</ul>
+</div>
+<h4 id="26-node-colors-2pts">[2.6]  Node colors (2pts)</h4>
+<p><ins class="critic">As a user, I want to see the different levels of the tree in different colors.</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>Make sure colors are easy on the eyes of user</li>
+<li>Make sure colors used are different for each level</li>
+<li>Make sure text on nodes are visible with color used</li>
+</ul>
+</div>
+<h4 id="27-breadcrumb-navigation-5pts">[2.7]  Breadcrumb navigation (5pts)</h4>
+<p><ins class="critic">As a user, I want to have a breadcrumb above the tree, so I can keep a history of my actions.</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>Clicking on any item on the breadcrumb navigates you to that node</li>
+<li>Clicking on a previous node removes all subsequent nodes from the breadcrumb</li>
+<li>Clicking on the node you are currently on should do nothing</li>
+</ul>
+</div>
+<h4 id="28-tree-modes-5pts">[2.8]  Tree modes (5pts)</h4>
+<p><ins class="critic">As a user, I want to be able to view the tree in “English mode” or “Cree mode”.</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>
+<p>English mode shows the tree in english mode</p>
+</li>
+<li>
+<p>Cree mode shows the tree in cree mode</p>
+</li>
+</ul>
+</div>
+<h4 id="29-get-root-node-8pts">[2.9]  Get root node (8pts)</h4>
+<p><ins class="critic"> As a user, I want to be able to “jump” to the root node of a word.</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>Jumping to root transition should be as smooth as possible</li>
+<li>Jumping to root should not take too long for user</li>
+<li>Jumping to root should not crash the site</li>
+</ul>
+</div>
+<h4 id="210-default-tree-5pts">[2.10] Default tree (5pts)</h4>
+<p><ins class="critic"> As a user, I want to be able to explore the tree starting from the highest classification level on a default homepage.</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>The site homepage should display a tree with the highest level semantic classifications (e.g. “entity”)</li>
+</ul>
+</div>
+<h3 id="3-epic-filtering">3. EPIC - Filtering</h3>
+<div class="admonition note">
+<p>I want to explore related words by selecting tags</p>
+</div>
+<h4 id="31-filter-search-results-3pts">[3.1]  Filter search results (3pts)</h4>
+<p><ins class="critic">As a user, I want to be able to filter results by tags when I am searching.</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>Users can filter search results to nouns, verbs, etc.</li>
+</ul>
+</div>
+<h4 id="32-filter-node-list-3pts">[3.2]  Filter node list (3pts)</h4>
+<p><ins class="critic">As a user, I want be able to filter the list of related nodes by tags when I am selecting nodes to add to the tree.</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>Users can filter related nodes by selecting tags like nouns, verbs, etc.</li>
+</ul>
+</div>
+<h4 id="33-search-node-list-3pts">[3.3]  Search node list (3pts)</h4>
+<p><ins class="critic">As a user, I want to be able to search the list of related nodes when I am selecting nodes to add to the tree.</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>Users can filter related nodes by typing text into the list’s search bar</li>
+</ul>
+</div>
+<h3 id="4-epic-platforms">4. EPIC - Platforms</h3>
+<h4 id="41-mobile-phone-8pts">[4.1]  Mobile phone (8pts)</h4>
+<p><ins class="critic">As a user, I want to view the website on my mobile phone.</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>Users can access all functionalities of the site on a phone.</li>
+</ul>
+</div>
+<h4 id="42-laptop-3pts">[4.2]  Laptop (3pts)</h4>
+<p><ins class="critic">As a user, I want to view the website on my laptop.</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>Users can access all functionalities of the site on a laptop.</li>
+</ul>
+</div>
+<h4 id="43-tablet-5pts">[4.3]  Tablet (5pts)</h4>
+<p><ins class="critic">As a user, I want to view the website on my tablet.</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>Users can access all functionalities of the site on a tablet.</li>
+</ul>
+</div>
+<h3 id="5-epic-exporting-data">5. EPIC - Exporting data</h3>
+<h4 id="51-export-csv-5pts">[5.1]  Export CSV (5pts)</h4>
+<p><ins class="critic">As a user, I want to export the data that I have explored as a CSV file</ins></p>
+<div class="admonition note">
+<p class="admonition-title">Acceptance Tests</p>
+<ul>
+<li>
+<p>Users can click a button that opens the raw data of the tree in a new tab.</p>
+</li>
+<li>
+<p>Users can click a button that downloads the CSV of the tree.</p>
+</li>
+</ul>
+</div>
+<h2 id="moscow">MoSCoW</h2>
+<h3 id="must-have">Must Have</h3>
+<div class="admonition note">
+<ul>
+<li>
+<p>1.1. As a user, I want to be sent to a results page ranked by relevance to my search query.</p>
+</li>
+<li>
+<p>1.2. As a user, I want to click on a search result and it takes me to a graph of the word.</p>
+</li>
+<li>
+<p>2.1. As a user, for a given node, if I click on the ‘+’ symbol I should see a list of hypernyms.</p>
+</li>
+<li>
+<p>2.2. As a user, for a given node, if I click on the ‘-’ symbol I should see a list of hyponyms.</p>
+</li>
+<li>
+<p>2.3. As a user, I want to select words from the list of hypernyms/hyponyms and click done and see my selected terms displayed on the tree.</p>
+</li>
+<li>
+<p>2.4. As a user, I want to move around the tree.</p>
+</li>
+<li>
+<p>2.5. As a user, I want to be able to select/click on a node in the graph, to see details about that word.</p>
+</li>
+<li>
+<p>4.1. As a user, I want to view the website on my mobile phone.</p>
+</li>
+<li>
+<p>4.2. As a user, I want to view the website on my laptop.</p>
+</li>
+<li>
+<p>4.3. As a user, I want to view the website on my tablet.</p>
+</li>
+</ul>
+</div>
+<h3 id="should-have">Should Have</h3>
+<div class="admonition note">
+<ul>
+<li>2.6. As a user, I want to see the different levels of the tree in different colors.</li>
+<li>2.8. As a user, I want to be able to view the tree in “English mode” or “Cree mode”.</li>
+<li>3.1. As a user, I want to be able to filter results by tags when I am searching.</li>
+<li>3.3. As a user, I want to be able to search the list of related nodes when I am selecting nodes to add to the tree.</li>
+</ul>
+</div>
+<h3 id="could-have">Could Have</h3>
+<div class="admonition note">
+<ul>
+<li>2.7. As a user, I want to have a breadcrumb above the tree, so I can keep a history of my actions.</li>
+<li>2.10. As a user, I want to be able to explore the tree starting from the highest classification level on a default homepage.</li>
+<li>3.2. As a user, I want to be able to filter the list of related nodes by tags when I am selecting nodes to add to the tree.</li>
+<li>5.1. As a user, I want to export the data that I have explored as a CSV file or copy pasteable format.</li>
+</ul>
+</div>
+<h3 id="would-like-but-wont-get">Would like But Won’t Get</h3>
+<div class="admonition note">
+<ul>
+<li>2.9. As a user, I want to be able to “jump” to the root node of a word.</li>
+</ul>
+</div>
+<h2 id="similar-products">Similar Products</h2>
+<ul>
+<li><a href="https://semdom.org/">RapidWords</a><ul>
+<li>A list of nearly 1800 semantic domains</li>
+<li>A tool for collecting the words of a language and developing a dictionary</li>
+</ul>
+</li>
+<li><a href="https://wordnet.princeton.edu/">WordNet</a><ul>
+<li>A large lexical database of English</li>
+<li>Nouns, verbs, adjectives and adverbs are grouped into sets of cognitive synonyms (synsets), each expressing a distinct concept</li>
+</ul>
+</li>
+<li><a href="https://itwewina.altlab.app/">Itwêwina</a><ul>
+<li>A Plains Cree Dictionary</li>
+</ul>
+</li>
+</ul>
+<h2 id="open-source-projects">Open-source Projects</h2>
+<h4 id="ualbertaaltlab"><a href="https://github.com/UAlbertaALTLab">UAlbertaALTLab</a></h4>
+<ul>
+<li>21st century tools for Indigenous languages</li>
+<li>User can search English and Cree words</li>
+<li>User can get information and pronunciation for each words.</li>
+</ul>
+<h4 id="rapidwords"><a href="https://semdom.org/">RapidWords</a></h4>
+<ul>
+<li>A web-based tool for text summarization and keyword extraction. The website offers a user-friendly interface and allows users to upload documents or paste text directly into the website for summarization.</li>
+</ul>
+<h4 id="wordnet"><a href="http://wordnetweb.princeton.edu/perl/webwn">WordNet</a></h4>
+<ul>
+<li>A lexical database for the English language, developed by Princeton University. It organizes words into sets of synonyms and organizes them into semantic hierarchies, allowing for a better understanding of how words are related semantically. The website provides a user-friendly interface for accessing and exploring the WordNet database, allowing users to search for words and their definitions, synonyms, and related concepts.</li>
+</ul>
+<h4 id="itwewina"><a href="https://itwewina.altlab.app/">Itwêwina</a></h4>
+<ul>
+<li>A web-based platform for learning Cree, an indigenous language of Canada. The platform offers interactive lessons and exercises to help users learn the basics of Cree, including vocabulary, grammar, and pronunciation. It also features a variety of resources, including audio recordings, to help users improve their listening and speaking skills in the language.</li>
+</ul>
+<h2 id="technical-resources">Technical Resources</h2>
+<h4 id="frontend-reactjs-d3js">Frontend: React.js + D3.js</h4>
+<ul>
+<li><a href="https://reactjs.org/">React JS documentation</a></li>
+<li><a href="https://d3js.org/">D3 documentation</a></li>
+</ul>
+<h4 id="backend-django-sqlite3">Backend: Django + SQLite3</h4>
+<ul>
+<li><a href="https://docs.djangoproject.com/en/4.1/">Django Documentation</a></li>
+<li><a href="https://sqlite.org/docs.html">SQLite3 Documentation</a></li>
+</ul>
+<h4 id="deployment-docker-nginx">Deployment: Docker + NGINX</h4>
+<ul>
+<li><a href="https://docs.docker.com/">Docker Documentation</a></li>
+<li><a href="https://docs.nginx.com/">NGINX Documentation</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../ProjectManagement/" class="btn btn-neutral float-left" title="Project Management"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../SoftwareDesign/" class="btn btn-neutral float-right" title="Software Design">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/UAlberta-CMPUT401/vocabulary-explorer" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../ProjectManagement/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../SoftwareDesign/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://ualberta-cmput401.github.io/vocabulary-explorer/</loc>
+         <lastmod>2023-10-24</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://ualberta-cmput401.github.io/vocabulary-explorer/FinalDocumentation/</loc>
+         <lastmod>2023-10-24</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://ualberta-cmput401.github.io/vocabulary-explorer/ProjectManagement/</loc>
+         <lastmod>2023-10-24</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://ualberta-cmput401.github.io/vocabulary-explorer/ProjectRequirements/</loc>
+         <lastmod>2023-10-24</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://ualberta-cmput401.github.io/vocabulary-explorer/SoftwareDesign/</loc>
+         <lastmod>2023-10-24</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://ualberta-cmput401.github.io/vocabulary-explorer/Teamwork/</loc>
+         <lastmod>2023-10-24</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+</urlset>

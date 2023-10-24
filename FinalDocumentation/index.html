@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://ualberta-cmput401.github.io/vocabulary-explorer/FinalDocumentation/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Final Documentation - Vocabulary Explorer Docs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Final Documentation";
+        var mkdocs_page_input_path = "FinalDocumentation.md";
+        var mkdocs_page_url = "/vocabulary-explorer/FinalDocumentation/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Vocabulary Explorer Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Welcome to vocabulary-explorer</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Final Documentation</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#deployment-instructions">Deployment instructions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#frontend">Frontend</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#step-by-step">STEP BY STEP</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#backend">Backend</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#user-manual">User manual</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#design-principles-and-future-development-ideas">Design principles and future development ideas</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#job-description">Job description</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#front-end-web-developer">Front End Web Developer:</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../ProjectManagement/">Project Management</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../ProjectRequirements/">Project Requirements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SoftwareDesign/">Software Design</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Teamwork/">Teamwork</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Vocabulary Explorer Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Final Documentation</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/UAlberta-CMPUT401/vocabulary-explorer/edit/master/docs/FinalDocumentation.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="final-documentation">Final Documentation</h1>
+<h2 id="deployment-instructions">Deployment instructions</h2>
+<div class="admonition note">
+<p>Deploying the platform requires one instance, just frontend. It requires docker installed.</p>
+</div>
+<h3 id="frontend">Frontend</h3>
+<div class="admonition note">
+<p class="admonition-title">Requirments</p>
+<ul>
+<li>Docker</li>
+<li>Github actions running the Deploy static CI</li>
+<li>Have the credentials in the project repo</li>
+</ul>
+</div>
+<h4 id="step-by-step">STEP BY STEP</h4>
+<div class="admonition note">
+<ol>
+<li>Git clone the repository and make sure you are in the main branch.
+<pre class="highlight"><code>&gt; git clone https://github.com/UAlberta-CMPUT401/vocabulary-explorer.git
+Username: # Enter credentials</code></pre></li>
+<li>Change your current directory to vocabulary-explorer
+<pre class="highlight"><code>&gt; cd vocabulary-explorer</code></pre></li>
+<li>Make sure your Docker installed and running with the system</li>
+<li>Build Docker image by using <code>docker compose up</code>. The image should be running on port 8080.
+<pre class="highlight"><code>&gt; docker compose up</code></pre></li>
+<li>Open <a href="http://localhost:8080">http://localhost:8080</a> to view it in your browser.</li>
+<li>Clients use Nginx to deploy the docker image to their own server, please contact the ALTlab's backend developer Jolene (jcpoulin@ualberta.ca) for further details.</li>
+</ol>
+</div>
+<h3 id="backend">Backend</h3>
+<div class="admonition note">
+<p>Since we are only responsible for developing the frontend page, the backend endpoints are maintained by the client. Please contact ALTlab for further backend deployment details. </p>
+</div>
+<p>Here are the API endpoints that we used in this project:
+<pre class="highlight"><code>GET https://api.itwewina.altlab.dev/api/search/
+Query Parameters:
+    - name (ex: atim)
+    - rw_index (ex: 6.3.1.5.1)
+    - rw_domain (ex: dog)
+
+GET https://api.itwewina.altlab.dev/api/rapidwords/ 
+Query Parameters:
+    - q (ex: 1.2.2)</code></pre>
+Detailed endpoint documentation made by ALTLab can be found <a href="https://github.com/UAlbertaALTLab/morphodict-backend">here</a>.</p>
+<!-- ![instructions](assets/images/Instructions.png) -->
+<!-- ```
+> git clone https://github.com/UAlberta-CMPUT401/vocabulary-explorer.git
+Username: # Enter credentials
+
+> cd vocabulary-explorer
+> docker compose up
+``` -->
+<h2 id="user-manual">User manual</h2>
+<p>Open the User Manual here: <a href="https://docs.google.com/document/d/1fr063TKXMPJiRLW1hL5pmAlVEqMqVKu8kGue_B_DenY/edit?usp=sharing">User Manual</a></p>
+<h3 id="design-principles-and-future-development-ideas">Design principles and future development ideas</h3>
+<p><a href="https://docs.google.com/document/d/180_0SOf0Af7AX1TUE1i0U1xXyrud_qDjfc7X7Q2GLrE/edit?usp=sharing">Click here</a> to see the Design principles.</p>
+<h2 id="job-description">Job description</h2>
+<h3 id="front-end-web-developer">Front End Web Developer:</h3>
+<p>Looking for a front end developer to work on ALTLab’s vocabulary explorer, a web application which allows users to visualize, through tree/graph, the relationships between words within the Plains Cree vocabulary, through linguistic semantic domain classification. </p>
+<p>Check out the current site here: <a href="https://semanticexplorer.altlab.dev/]">https://semanticexplorer.altlab.dev/</a></p>
+<div class="admonition note">
+<p class="admonition-title">Responsibilities</p>
+<ul>
+<li>Maintain and improve existing Javascript codebase</li>
+<li>Understand the needs of users to determine design choices, especially as related to the tree/graph</li>
+<li>Develop new features to improve user experience</li>
+<li>Write unit, integration, and UI tests</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Technical requirements</p>
+<ul>
+<li>Experience with web development, HTML, CSS, and Javascript, specifically with React.js and D3.js </li>
+<li>Understanding of handling API responses</li>
+<li>Experience with deployment using Docker</li>
+<li>Experience writing effective tests, specifically utilizing JUnit and Cypress</li>
+</ul>
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Welcome to vocabulary-explorer"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../ProjectManagement/" class="btn btn-neutral float-right" title="Project Management">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/UAlberta-CMPUT401/vocabulary-explorer" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../ProjectManagement/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
