@@ -85,6 +85,19 @@ function constructData(){
     }
 
     var domains = search_data.search_results[i]['lemma_wordform']['linguist_info']['rw_domains'] // please notes domain list can include "" item
+
+    // Remove Duplicate Entries from the List
+    var domainSet = new Set();
+    if (domains) {
+      for (var j = 0; j < domains.length; j++) {
+        var domain = domains[j].toLowerCase();
+        domainSet.add(domain);
+      }
+    }
+
+    // Convert the Set back to an array
+    domains = Array.from(domainSet);
+    
     var domains_raw = []
     for(var item in domains){
       if(domains[item] == ""){
