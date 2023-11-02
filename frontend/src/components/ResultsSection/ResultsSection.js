@@ -91,6 +91,7 @@ function constructData(){
     if (domains) {
       for (var j = 0; j < domains.length; j++) {
         var domain = domains[j].toLowerCase();
+        domain = domain.replaceAll('_', ' ')
         domainSet.add(domain);
       }
     }
