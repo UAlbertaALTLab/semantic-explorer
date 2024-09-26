@@ -22,7 +22,7 @@ import { timeout } from 'd3';
 export function searchRWRelations(domain){
   if (!domain) return;
   
-  return axios.get('https://api.itwewina.altlab.dev/api/rapidwords/', {
+  return axios.get('https://api.itwewina2.altlab.dev/api/rapidwords/', {
     params: {
       q: domain
     }
@@ -83,7 +83,7 @@ export function searchRWByDomain(domain){
   if (!domain) return;
   var formattedDomain = domain.replace(', ', '_').toLowerCase();
   
-  return axios.get('https://api.itwewina.altlab.dev/api/search/', {
+  return axios.get('https://api.itwewina2.altlab.dev/api/search/', {
     params: {
       rw_domain: formattedDomain
     }
@@ -123,7 +123,7 @@ export function searchRWByDomainMock(domain){
 //{search('dog').then(res => {console.log(res)})}
 export function search(query){
   try {
-      return axios.get('https://api.itwewina.altlab.dev/api/search/',
+      return axios.get('https://api.itwewina2.altlab.dev/api/search/',
         {params: {
           name: query
         }}

@@ -29,13 +29,13 @@ This is a diagram of the client's full architecture. However, for this project c
 
 ## API Endpoints
 ```
-GET https://api.itwewina.altlab.dev/api/search/
+GET https://api.itwewina2.altlab.dev/api/search/
 Query Parameters:
     - name (ex: atim)
     - rw_index (ex: 6.3.1.5.1)
     - rw_domain (ex: dog)
 
-GET https://api.itwewina.altlab.dev/api/rapidwords/ 
+GET https://api.itwewina2.altlab.dev/api/rapidwords/ 
 Query Parameters:
     - q (ex: 1.2.2)
 ```
