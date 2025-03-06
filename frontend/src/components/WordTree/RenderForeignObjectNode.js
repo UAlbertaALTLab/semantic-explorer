@@ -11,7 +11,7 @@ import {
   getParentAndSiblings,
 } from './utils/constructRWTreeData';
 import { IconButton } from '@material-ui/core';
-import { searchRWByDomain} from '../../api/Search';
+import { searchRWByDomain, searchDomainIndex } from '../../api/Search';
 import {List} from '@mui/material'; 
 import CircularProgress from '@mui/material/CircularProgress';
 import './styles/WordTree.css'
@@ -32,7 +32,10 @@ const RenderForeignObjectNode = ({
     Loading,
     setLoading,
     reRender
-  }) =>{
+  }) => {
+
+  // Log the nodeDatum.name
+  //console.log("nodeDatum.name:", nodeDatum.name);
 
   return (
     <>
@@ -43,7 +46,6 @@ const RenderForeignObjectNode = ({
             <Tooltip title="View Parent" TransitionComponent={Zoom} placement="top">
               <Button name={"hypernymButton" + nodeDatum.name}
                   style={{borderRadius: "15px", color: "white", background: "#1c1d21"}}
-
                   onClick={() => {
                     setLoading(true)
                     getParentAndSiblings(nodeDatum).then((parentObject) => {
@@ -60,7 +62,7 @@ const RenderForeignObjectNode = ({
               </Button>
             </Tooltip>
             <Button
-                style={{borderRadius: "15px", fontFamily: "'Open Sans', sans-serif", fontSize: '14px', fontWeight: 800, color: 'white', background: `${setColor(nodeDatum.__rd3t.depth, nodeDatum.isInit)}`,textStroke: '1px rgba(0, 0, 0, 0.7)', WebkitTextStroke: '1px rgba(0, 0, 0, 0.7)'}}
+                style={{borderRadius: "15px", fontFamily: "'Open Sans', sans-serif", fontSize: '14px', fontWeight: 800, color: 'white', background: `${setColor(nodeDatum.__rd3t.depth, nodeDatum.isInit)}`, textStroke: '1px rgba(0, 0, 0, 0.7)', WebkitTextStroke: '1px rgba(0, 0, 0, 0.7)'}}
                 className={classes.button}
                 variant="contained"
                 onClick={toggleNode}
@@ -83,14 +85,14 @@ const RenderForeignObjectNode = ({
                     updateGraphData(newGraphData);})
                     setLoading(false)
                   }
-                  toggleNode();}}
+                  toggleNode();
+                }}
                 > <PlayArrow />
               </Button>
             </Tooltip>
           </ButtonGroup>
           {
             nodeDatum.creeWords !== undefined ?
-
               <div className={classes.listContainer}>
               {
                 nodeDatum.creeWords.length > 0 ?
@@ -117,7 +119,6 @@ const RenderForeignObjectNode = ({
                               </IconButton>  
                             </a>
                           </ListItem> 
-
                       )
                     }
                   )
@@ -148,7 +149,8 @@ const RenderForeignObjectNode = ({
                       nodeDatum.creeWordsLoading = true;
                       reRender();
                       // wait for the data to load and capture the response
-                      searchRWByDomain(nodeDatum.name).then((creeWords) => {
+                      const nodeIndex = searchDomainIndex(nodeDatum.name)
+                      searchRWByDomain(nodeIndex).then((creeWords) => {
                         nodeDatum.creeWords = creeWords;
                         nodeDatum.creeWordsLoaded = true;
                         var newGraphData = addCreeWordstoNodeThenReturnNewGraphData(graphData, nodeDatum.name, creeWords);
@@ -166,6 +168,7 @@ const RenderForeignObjectNode = ({
         </Box>
       </foreignObject>
     </>
-  )};
+  )
+};
 
 export {RenderForeignObjectNode};

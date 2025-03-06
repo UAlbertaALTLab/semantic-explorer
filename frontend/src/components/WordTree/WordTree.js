@@ -7,7 +7,6 @@ import { Box, ButtonGroup, Button, ThemeProvider} from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { Add, Remove, CropFree} from '@mui/icons-material';
 import { constructInitialGraph } from './utils/constructRWTreeData';
-import { searchDomainIndex } from '../../api/Search';
 import { useParams } from 'react-router-dom';
 import { theTheme } from '../../App';
 import Backdrop from '@mui/material/Backdrop';
@@ -57,22 +56,6 @@ function WordGraph() {
  // Fetch index after component mounts
  useEffect(() => {
   let isMounted = true;
-
-  async function fetchIndex() {
-    try {
-      const index = await searchDomainIndex(word);
-      if (isMounted && index) {
-        setGraphData(prevGraphData => ({
-          ...prevGraphData,
-          index: index,
-        }));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  fetchIndex();
 
   return () => {
     isMounted = false;

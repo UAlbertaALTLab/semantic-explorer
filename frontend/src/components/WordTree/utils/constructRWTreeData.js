@@ -1,11 +1,11 @@
-import { searchRWRelations, getCreeWords } from "../../../api/Search";
+import { searchRWRelations, getCreeWords, searchDomainIndex } from "../../../api/Search";
 import rapidwordsData from "../../../data/rapidwords.json";
 
 // Constructs an initial node with a given word and (optional) rapidwords index
-export function constructInitialGraph(word, index = null) {
+export function constructInitialGraph(word) {
   return {
     name: word,
-    index: index,
+    index: searchDomainIndex(word),
     isInit: true,
     children: [],
     children_indexes: []
