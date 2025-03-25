@@ -84,7 +84,7 @@ function constructData(){
       contextInfo.push(null)
     }
 
-    var domains = search_data.search_results[i]['lemma_wordform']['linguist_info']['rw_domains'] // please notes domain list can include "" item
+    var domains = search_data.search_results[i]['lemma_wordform']['rw_domains'].split(';').map((x) => x.trim()) // please notes domain list can include "" item
 
     // Remove Duplicate Entries from the List
     var domainSet = new Set();
@@ -129,7 +129,7 @@ function constructData(){
     data[numItem]['domains'] = domains
     data[numItem]['domains_raw'] = domains_raw
     data[numItem]['rw_indices'] = rw_indices_cleaned
-    numItem +=1;
+     numItem +=1;
   }
 }
 
