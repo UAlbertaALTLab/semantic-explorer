@@ -93,7 +93,7 @@ export function getHyponyms(index) {
   return formattedHyponyms;
 }
 
-// Function to search RW by domain
+
 export function searchRWByDomain(index) {
   if (!index) return;
 
