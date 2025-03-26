@@ -3,7 +3,7 @@
 # https://www.pluralsight.com/guides/using-react.js-with-docker
 
 # pull the base image
-FROM node:alpine
+FROM node:alpine AS builder
 
 # set the working direction
 WORKDIR /app/
@@ -23,14 +23,7 @@ COPY . ./
 
 RUN npm run build
 
-# uWSGI will bind HTTP to this port:
-EXPOSE 3000 
-# uWSGI stats are accessible on this port
-# I view them with this command:
-#
-#    $ nc 127.0.0.1 9191 | jq
-#
-# EXPOSE 4141
+#### Application image
 
-# start app
-CMD ["npm", "start"]
+FROM nginx
+COPY --from=builder /app/build/ /usr/share/nginx/html
