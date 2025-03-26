@@ -31,7 +31,8 @@ const RenderForeignObjectNode = ({
     setSnackBar,
     Loading,
     setLoading,
-    reRender
+    reRender,
+    rwRequests
   }) => {
 
   // Log the nodeDatum.name
@@ -48,7 +49,7 @@ const RenderForeignObjectNode = ({
                   style={{borderRadius: "15px", color: "white", background: "#1c1d21"}}
                   onClick={() => {
                     setLoading(true)
-                    getParentAndSiblings(nodeDatum).then((parentObject) => {
+                    getParentAndSiblings(nodeDatum, rwRequests).then((parentObject) => {
                       if (parentObject !== null) {
                         var newGraphData = generateGraphWithNewParent(graphData, parentObject);
                         overWriteGraphData(newGraphData);
@@ -75,7 +76,7 @@ const RenderForeignObjectNode = ({
                 onClick={() => {
                   if(!nodeDatum.children) {
                     setLoading(true)
-                    getChildren(nodeDatum).then((childrenObject) => {
+                    getChildren(nodeDatum, rwRequests).then((childrenObject) => {
                     if (childrenObject.length === 0) {
                       setSnackBar({...snackBar, open: true, message: "No children found", type: "info"})
                       setLoading(false)
@@ -150,7 +151,7 @@ const RenderForeignObjectNode = ({
                       reRender();
                       // wait for the data to load and capture the response
                       const nodeIndex = searchDomainIndex(nodeDatum.name)
-                      searchRWByDomain(nodeIndex).then((creeWords) => {
+                      searchRWByDomain(nodeIndex,rwRequests).then((creeWords) => {
                         nodeDatum.creeWords = creeWords;
                         nodeDatum.creeWordsLoaded = true;
                         var newGraphData = addCreeWordstoNodeThenReturnNewGraphData(graphData, nodeDatum.name, creeWords);

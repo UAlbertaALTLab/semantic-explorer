@@ -31,6 +31,7 @@ const theme = createTheme({
 
 // This component is responsible for rendering the entire graph.
 function WordGraph() {
+  const [rwRequests, setRwRequests] = useState({});
   const [zoomValue, setZoomValue] = useState(1);
   const [Loading, setLoading] = useState(false);
   const [isListOpen, setIsListOpen] = useState(false);
@@ -40,7 +41,7 @@ function WordGraph() {
   const minZoom = 0.1;
   const maxZoom = 5;
   const word = domain;
-  const [graphData, setGraphData] = useState(constructInitialGraph(word));
+  const [graphData, setGraphData] = useState(constructInitialGraph(word, rwRequests));
   useEffect(() => {
     console.log("Graph Data:", graphData);
   }, [graphData]);
@@ -189,7 +190,8 @@ function WordGraph() {
                       setSnackBar,
                       Loading,
                       setLoading,
-                      reRender
+                      reRender,
+                      rwRequests
                     })
                   }
                   orientation="horizontal"

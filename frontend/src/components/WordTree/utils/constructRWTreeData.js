@@ -1,11 +1,15 @@
-import { searchRWRelations, getCreeWords, searchDomainIndex } from "../../../api/Search";
+import { searchRWRelations, getCreeWords, searchDomainIndex, requestRWFromStore } from "../../../api/Search";
 import rapidwordsData from "../../../data/rapidwords.json";
 
 // Constructs an initial node with a given word and (optional) rapidwords index
-export function constructInitialGraph(word) {
+export function constructInitialGraph(word, store) {
+  let index = searchDomainIndex(word)
+
+  requestRWFromStore(index, store)
+  
   return {
     name: word,
-    index: searchDomainIndex(word),
+    index: index,
     isInit: true,
     children: [],
     children_indexes: []
@@ -27,7 +31,7 @@ export function addChildrentoParentThenReturnNewGraphData(data, parent, children
 }
 
 // Given a parent rapidwords index, returns an array of child nodes using local rapidwords.json data
-export function constructChildrenDomains(parentIndex) {
+export function constructChildrenDomains(parentIndex, store) {
   if (!parentIndex || !rapidwordsData[parentIndex]) return [];
   
   const hyponyms = rapidwordsData[parentIndex].hyponyms || [];
@@ -36,12 +40,16 @@ export function constructChildrenDomains(parentIndex) {
     index: childIndex
   }));
   
+  hyponyms.forEach(childIndex => {
+    requestRWFromStore(childIndex, store)
+  });
+
   console.log("constructChildrenDomains returning:", childrenList);
   return childrenList;
 }
 
 // Given a child rapidwords index, returns its parent domain (if any) along with all of the parent's children (i.e. siblings)
-export function constructParentDomainAndAllChildren(childIndex) {
+export function constructParentDomainAndAllChildren(childIndex, store) {
   if (!childIndex || !rapidwordsData[childIndex]) return null;
   
   const childData = rapidwordsData[childIndex];
@@ -52,10 +60,14 @@ export function constructParentDomainAndAllChildren(childIndex) {
   const parentData = rapidwordsData[parentIndex];
   if (!parentData) return null;
   
+  requestRWFromStore(parentIndex, store)
+
   const domainChildren = (parentData.hyponyms || []).map(idx => ({
     name: rapidwordsData[idx]?.domain || "Unknown",
     index: idx
   }));
+
+  domainChildren.forEach(child => requestRWFromStore(child.index, store))
   
   return {
     name: parentData.domain,
@@ -97,21 +109,21 @@ export function generateGraphWithNewParent(graphData, parentObject) {
 }
 
 // Given a node (which should include a rapidwords index), returns its children nodes using local data
-export async function getChildren(nodeDatum) {
+export async function getChildren(nodeDatum, store) {
   console.log("I should get the children of", nodeDatum.name);
   if (!nodeDatum.index) {
     console.error("No rapidwords index provided for", nodeDatum.name);
     return [];
   }
-  return constructChildrenDomains(nodeDatum.index);
+  return constructChildrenDomains(nodeDatum.index, store);
 }
 
 // Given a node (which should include a rapidwords index), returns its parent and siblings using local data
-export async function getParentAndSiblings(nodeDatum) {
+export async function getParentAndSiblings(nodeDatum, store) {
   console.log("I should get the parent and siblings of", nodeDatum.name);
   if (!nodeDatum.index) {
     console.error("No rapidwords index provided for", nodeDatum.name);
     return null;
   }
-  return constructParentDomainAndAllChildren(nodeDatum.index);
+  return constructParentDomainAndAllChildren(nodeDatum.index, store);
 }

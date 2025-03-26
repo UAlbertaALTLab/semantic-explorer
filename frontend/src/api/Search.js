@@ -93,14 +93,21 @@ export function getHyponyms(index) {
   return formattedHyponyms;
 }
 
-
-export function searchRWByDomain(index) {
-  if (!index) return;
-
-  return axios
+export function requestRWFromStore( index, store ) {
+  if (!store[index]) {
+    store[index] = axios
     .get('https://itwewina.altlab.dev/api/rapidwords-index/', {
       params: { rw_index: index }
     })
+  }
+  return store[index]
+}
+
+
+export function searchRWByDomain(index, store) {
+  if (!index) return;
+
+  return requestRWFromStore(index, store)
     .then((response) => {
       // Get the results from the API response
       const wordsArray = response.data.results;
