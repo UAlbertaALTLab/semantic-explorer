@@ -16,6 +16,7 @@ import { useCenteredTree } from './utils/graphCenterer';
 import './styles/WordTree.css'
 import { useStyles } from './styles/styles';
 import {RenderForeignObjectNode} from './RenderForeignObjectNode';
+import rapidwordsData from '../../data/rapidwords.json';
 
 const theme = createTheme({
     palette: {
@@ -33,7 +34,8 @@ function WordGraph() {
   const [zoomValue, setZoomValue] = useState(1);
   const [Loading, setLoading] = useState(false);
   const [isListOpen, setIsListOpen] = useState(false);
-  const { domain } = useParams();
+  const { index } = useParams();
+  const domain = rapidwordsData[index]?.domain;
   const classes = useStyles();
   const minZoom = 0.1;
   const maxZoom = 5;

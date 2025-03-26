@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { CircularProgress } from '@material-ui/core';
 import { theTheme } from '../../App';
+import rapidwordsData from '../../data/rapidwords.json';
 
 var loading = true;
 var data = {} // the data to be stored 
@@ -46,90 +47,12 @@ function constructData(){
     }
     data[numItem]['def'] = definitions
 
-    var contextInfo = [] // [info(list with 2 items), recording, inflection category, emoji, [category, tooptip text], stem, pos]
-
-    if (search_data.search_results[i]['relabelled_fst_analysis']['plain_english'] != undefined){
-      contextInfo.push(search_data.search_results[i]['relabelled_fst_analysis']['plain_english'])
-    }else{
-      contextInfo.push(null)
-    }
-
-    if (search_data.search_results[i]['recording'] != ""){
-      contextInfo.push(search_data.search_results[i]['recording'])
-    }else{
-      contextInfo.push(null)
-    }
-
-    contextInfo.push(search_data.search_results[i]['lemma_wordform']['inflectional_category'])
-
-    if (search_data.search_results[i]['lemma_wordform']['wordclass_emoji'] != null){
-      contextInfo.push(search_data.search_results[i]['lemma_wordform']['wordclass_emoji'])
-    }else{
-      contextInfo.push(null)
-    }
-
-    var subInflec = []
-    if (search_data.search_results[i]['lemma_wordform']['inflectional_category_plain_english'] != null){
-      subInflec.push(search_data.search_results[i]['lemma_wordform']['inflectional_category_plain_english'])
-      var subInflecToolTipTxt = search_data.search_results[i]['lemma_wordform']['inflectional_category_linguistic'] + ' (' + search_data.search_results[i]['lemma_wordform']['text'] + ') - tâpiskôc: ' + search_data.search_results[i]['lemma_wordform']['inflectional_category_plain_english'].replace('like: ', '')
-      subInflec.push(subInflecToolTipTxt)
-    }else{
-      subInflec.push("None")
-    }
-    contextInfo.push(subInflec)
-
-    if(search_data.search_results[i]['lemma_wordform']['linguist_info']['stem'] != undefined){
-      contextInfo.push(search_data.search_results[i]['lemma_wordform']['linguist_info']['stem'])
-    }else{
-      contextInfo.push(null)
-    }
-
-    var domains = search_data.search_results[i]['lemma_wordform']['rw_domains'].split(';').map((x) => x.trim()) // please notes domain list can include "" item
-
-    // Remove Duplicate Entries from the List
-    var domainSet = new Set();
-    if (domains) {
-      for (var j = 0; j < domains.length; j++) {
-        var domain = domains[j].toLowerCase();
-        domain = domain.replaceAll('_', ' ')
-        domainSet.add(domain);
-      }
-    }
-
-    // Convert the Set back to an array
-    domains = Array.from(domainSet);
+    let rw_indices = search_data.search_results[i]['lemma_wordform']['rapidwords']
+    let domains = rw_indices.map((x) => rapidwordsData[x].domain)
     
-    var domains_raw = []
-    for(var item in domains){
-      if(domains[item] == ""){
-        domains.splice(item, 1)
-        continue
-      }
-      var firstChar = domains[item].charAt(0).replace(' ', '')
-      domains[item] = firstChar + domains[item].slice(1)
-      domains[item] = domains[item].replaceAll('_', ' ')
-
-      domains_raw.push(domains[item].charAt(0).toUpperCase() + domains[item].slice(1))
-    }
-
-    // var input contains " 6.3.1.7.1; 6.3.1.5.1; 6.3; 6.3.1.5; 6.3.1;"
-    // output should look like ['6.3.1.7.1', '6.3.1.5.1', '6.3', '6.3.1.5', '6.3.1']
-    var rw_indices_string = search_data.search_results[i]['lemma_wordform']['rw_indices']
-    var rw_indices_cleaned = rw_indices_string.split(";")
-    for(var item in rw_indices_cleaned){
-      //if rw_indices_cleaned[item] == "", remove it
-      if(rw_indices_cleaned[item] == ""){
-        rw_indices_cleaned.splice(item, 1)
-        continue
-      }
-      rw_indices_cleaned[item] = rw_indices_cleaned[item].trim()
-    }
-
-    data[numItem]['context'] = contextInfo
     data[numItem]['domains'] = domains
-    data[numItem]['domains_raw'] = domains_raw
-    data[numItem]['rw_indices'] = rw_indices_cleaned
-     numItem +=1;
+    data[numItem]['rw_indices'] = rw_indices
+    numItem +=1;
   }
 }
 
@@ -187,39 +110,6 @@ function ResultsSection(){
                       <div id="left_listitem_content">
                         <div id='firstline_parent'>
                           <h1 id="word_title">{search_data.search_results[data[index].id]['lemma_wordform']['text']}</h1>
-                          {data[index]['context'].map((item, i)=>{
-                            if(i==0 && item.length!=0){ //[info(list with items), recording link, inflection category, emoji, [category, tooptip text], stem]
-                              return <Tooltip key={i} title={<div>{item[0]}<br></br>{item[1]}</div>}><img id='info' src={info}/></Tooltip>
-                            }else if(i==0){
-                              return
-                            }else if(i==1 && item!=null){
-                              return <img id='voice' key={i} src={voice} onClick={() => startAudio(item)}/>
-                            }else{
-                              return
-                            }
-                          })}
-                        </div>
-
-                        <div id='secondline_parent'>
-                          {data[index]['context'].map((item, i) => {
-                            if(i==2){
-                              return <h3 className='word_body' key={i}>{item}</h3>
-                            }else if(i==3 && item!=null){
-                              return <h3 className='item word_body' key={i}>{item}</h3>
-                            }else if(i==3){
-                              return
-                            }else if(i==4){
-                              if(item == "None"){
-                                return <h3 className='item word_body' key={i}>{item[0]}</h3>
-                              }else{
-                                return <Tooltip key={i} title={item[1]}><h3 className='item word_body' id='like_secondline'>{item[0]}</h3></Tooltip> 
-                              }
-                            }else if(i==5 && item!=null){
-                              return <Tooltip key={i} title={item}><img className='item' src={book}/></Tooltip> 
-                            }else if(i==5){
-                              return
-                            } 
-                          })}
                         </div>
 
                         <div id="definitions">
@@ -268,7 +158,7 @@ function ResultsSection(){
                                     boxShadow: '0 4px 4px rgba(83, 100, 255, 0.32)'
                                   }
                                 }}       
-                                onClick={() => {setGraphWord(data[index]['domains_raw'][i])}}>{item}</Button>
+                                onClick={() => {setGraphWord(data[index]['rw_indices'][i])}}>{item}</Button>
                               }
                               })}
                               {/* </Link> */}

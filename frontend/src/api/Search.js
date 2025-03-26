@@ -142,8 +142,8 @@ export function logData(label, data) {
 // Legacy search function (unchanged)
 export function search(query) {
   try {
-    return axios.get('https://api.itwewina2.altlab.dev/api/search/', {
-      params: { name: query }
+    return axios.get('https://itwewina.altlab.dev/api/search/', {
+      params: { query: query }
     }).then(res => res.data);
   } catch (error) {
     console.log(error);

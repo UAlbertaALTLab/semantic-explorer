@@ -108,7 +108,7 @@ function App() {
         <Routes id="Body">
           <Route path="/search/:searchTerm/:Pos" onError={(err) => console.error(err)} element={resultsSection} /> {/* comment this and uncomment next line to test graph directly */}
           <Route path="/dev/wordtree" element={<Wordgraph></Wordgraph>} /> 
-          <Route path="/wordtree/rapidwords/:domain" element={<Wordgraph></Wordgraph>} />
+          <Route path="/wordtree/rapidwords/:index" element={<Wordgraph></Wordgraph>} />
         </Routes>
 
         <div id={footer}>
