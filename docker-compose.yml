@@ -6,3 +6,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:3000"
+  mobile-frontend:
+    build:
+      context: mobile_frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8081:80"
