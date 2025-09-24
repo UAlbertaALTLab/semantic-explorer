@@ -42,6 +42,9 @@
             <h5 id="hyponyms_title"><br/></h5>
         </div>
     </div>
+    <div class="row" id="entryMessage">
+        <p>Please wait while we search for the results...</p>
+    </div>
     <div class="row">
         <div class="col overflow-scroll">
             <div class="list-group" id="hypernymResults">
@@ -55,9 +58,6 @@
             <div class="list-group" id="hyponymResults">
             </div>
         </div>
-    </div>
-    <div class="row" id="entryMessage">
-        <p>Please wait while we search for the results...</p>
     </div>
     </div>
     </main>
@@ -145,7 +145,7 @@
                         "class": "list-group-item list-group-item-action",
                     });
                     content.append($("<a />",{
-                        "href": "?wn_search="+index["synset"],
+                        "href": "?wn_search="+encodeURIComponent(index["synset"]),
                         "class": "link-dark",
                         "text": index["synset"]
                     }))
@@ -164,7 +164,7 @@
                         "class": "list-group-item list-group-item-action",
                     });
                     content.append($("<a />",{
-                        "href": "?wn_search="+index["synset"],
+                        "href": "?wn_search="+encodeURIComponent(index["synset"]),
                         "class": "link-dark",
                         "text": index["synset"]
                     }))
