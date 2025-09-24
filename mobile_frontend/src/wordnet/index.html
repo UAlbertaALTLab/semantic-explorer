@@ -56,6 +56,9 @@
             </div>
         </div>
     </div>
+    <div class="row" id="entryMessage">
+        <p>Please wait while we search for the results...</p>
+    </div>
     </div>
     </main>
     <!-- end -->
@@ -69,6 +72,7 @@
             definition = candidates[0]["definition"]
 
             $.getJSON(API_URL+"wordnet-synset/?wn="+encodeURIComponent(search), (synset) => {
+            $("#entryMessage").empty()
             let hypernyms = synset["hypernyms"]
             let hyponyms  = synset["hyponyms"]
             let siblings = synset["hyponyms_of_hypernyms"]
