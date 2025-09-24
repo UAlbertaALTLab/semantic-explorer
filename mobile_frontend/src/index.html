@@ -12,7 +12,7 @@
     <script>
         var search = new URLSearchParams(window.location.search).get("rw_search")
     </script>
-    <nav class="navbar navbar-expand-sm bg-danger-subtle" >
+    <nav class="navbar navbar-expand-sm bg-primary-subtle" >
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Vocabulary Explorer</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,22 +65,24 @@
     <script>
         let datalist = $("#datalistOptions")
         var rapidwords = {}
+        var index = []
         let top_level_rw = []
         $.getJSON("https://raw.githubusercontent.com/UAlbertaALTLab/rapidwords/refs/heads/main/rapidwords.json", (data) =>{
             rapidwords = data;
             for (const [key, value] of Object.entries(rapidwords)) {
-                datalist.append("<option value=\""+key+" "+value["domain"]+"\">")
+                datalist.append("<option value=\""+value["domain"]+"\">")
                 if(key.indexOf(".")<0){
                     top_level_rw.push(key)
                 }
+                index.push([key, value["domain"]])
             }
-            console.log("done.")
-                $('#formFieldset').attr("disabled",false);
-                if(search){
-                    $("#content").removeClass("d-none").addClass("d-block")
-                    elements = search.split(" ")
-                    search = elements.shift()
-                    category = elements.join(" ")
+            $('#formFieldset').attr("disabled",false);
+            if(search){
+                $("#content").removeClass("d-none").addClass("d-block")
+                let candidates = index.filter(([i, word]) => word == search)
+                if (candidates.length == 1){
+                    search = candidates[0][0]
+                    category = candidates[0].join(" ")
                     // $("#rw_name").append("<h2>"+category+"</h2>")
 
                     let siblings = search.indexOf(".")<0 ? top_level_rw :rapidwords[rapidwords[search]["hypernyms"][0]]["hyponyms"];
@@ -93,99 +95,111 @@
                         let title = $("<button>", {
                             "class": "accordion-button" + (sibling == search ? "" : " collapsed"),
                             "type": "button",
-                            "data-bs-toggle": "collapse",
+                                "data-bs-toggle": "collapse",
                             "data-bs-target": "#"+id_name,
-                            "aria-expanded": sibling == search,
-                            "aria-controls": id_name,
-                        })
-                        title.append(rapidwords[sibling]["domain"])
-                        header.append(title)
-                        let contents = $("<div>", {
-                            "id": id_name,
-                            "class": "accordion-collapse collapse" + (sibling == search ? " show" : ""),
-                            "data-bs-parent": "#accordionContents"
-                        })
-                        let body = $("<div>", {
-                            "class": "accordion-body"
-                        })
-                        contents.append(body)
-                        let listgroup = $("<div>", {
-                            "class": "list-group",
-                            // "id": "wordResults"
-                        })
-                        body.append(listgroup)
-                        let item = $("<div>",{
-                            class:"accordion-item"
-                        })
-                        item.append(header)
-                        item.append(contents)
-                        $("#accordionContents").append(item)
-                        listgroup.append("(Loading, please wait ...)")
-                        // Now get the JSON and fill up the siblings
-                        $.getJSON("https://itwewina.altlab.dev/api/rapidwords-index/?rw_index="+sibling+"", (words) => {
-                        listgroup.empty()
-                        for (const word of words["results"]){
-                            let value = $("<a />",{
-                                "href": "http://itwewina.altlab.app"+word["lemma_wordform"]["lemma_url"],
-                                "class": "list-group-item"
+                                "aria-expanded": sibling == search,
+                                "aria-controls": id_name,
                             })
-                            let heading = $("<div>", {
-                                "class": "d-flex w-100 justify-content-between"
+                            title.append(rapidwords[sibling]["domain"])
+                            header.append(title)
+                            let contents = $("<div>", {
+                                "id": id_name,
+                                "class": "accordion-collapse collapse" + (sibling == search ? " show" : ""),
+                                "data-bs-parent": "#accordionContents"
                             })
-                            heading.append("<h5 class=\"mb-1\">"+word["wordform_text"]+["</h5>"])
-                            value.append(heading)
-                            for (const defn of word["definitions"]){
-                                value.append("<p class=\"mb-1\">"+defn["text"]+"</p>")
+                            let body = $("<div>", {
+                                "class": "accordion-body"
+                            })
+                            contents.append(body)
+                            let listgroup = $("<div>", {
+                                "class": "list-group",
+                                // "id": "wordResults"
+                            })
+                            body.append(listgroup)
+                            let item = $("<div>",{
+                                class:"accordion-item"
+                            })
+                            item.append(header)
+                            item.append(contents)
+                            $("#accordionContents").append(item)
+                            listgroup.append("(Loading, please wait ...)")
+                            // Now get the JSON and fill up the siblings
+                            $.getJSON("https://itwewina.altlab.dev/api/rapidwords-index/?rw_index="+sibling+"", (words) => {
+                            listgroup.empty()
+                            for (const word of words["results"]){
+                                let value = $("<a />",{
+                                    "href": "http://itwewina.altlab.app"+word["lemma_wordform"]["lemma_url"],
+                                    "class": "list-group-item"
+                                })
+                                let heading = $("<div>", {
+                                    "class": "d-flex w-100 justify-content-between"
+                                })
+                                heading.append("<h5 class=\"mb-1\">"+word["wordform_text"]+["</h5>"])
+                                value.append(heading)
+                                for (const defn of word["definitions"]){
+                                    value.append("<p class=\"mb-1\">"+defn["text"]+"</p>")
+                                }
+                                listgroup.append(value)
                             }
-                            listgroup.append(value)
-                        }
-                        listgroup.append("<p>There might be more words in the subcategories of "+rapidwords[sibling]["domain"]+".</p>")
-                    })
-                    let hyponym_function = function () {
-                        // console.log("action on "+id_name)
-                        $("#hyponymResults").empty();
-                        $("#hyponyms_title").empty();
-                        // $("#hyponyms_title").append("&quot;"+rapidwords[sibling]["domain"]);
-                        //$("#hyponyms_title").append("&quot; includes...")
-                        $("#hyponyms_title").append("nitânisak / daughters")
-                        for (const index of rapidwords[sibling]["hyponyms"]){
-                        let value = $("<a />",{
-                            "href": "?rw_search="+index+" "+rapidwords[index]["domain"],
-                            "class": "list-group-item list-group-item-action"// list-group-item-success"
+                            listgroup.append("<p>There might be more words in the subcategories of "+rapidwords[sibling]["domain"]+".</p>")
                         })
-                        value.append(rapidwords[index]["domain"])
-                        $("#hyponymResults").append(value)
-                    }
-                    }
-                    $('#'+id_name).on('show.bs.collapse', hyponym_function);
-                    if (sibling == search){
-                        hyponym_function();
-                    }
-                    });
+                        let hyponym_function = function () {
+                            // console.log("action on "+id_name)
+                            $("#hyponymResults").empty();
+                            $("#hyponyms_title").empty();
+                            // $("#hyponyms_title").append("&quot;"+rapidwords[sibling]["domain"]);
+                            //$("#hyponyms_title").append("&quot; includes...")
+                            $("#hyponyms_title").append("nitânisak / daughters")
+                            for (const index of rapidwords[sibling]["hyponyms"]){
+                            let value = $("<a />",{
+                                "href": "?rw_search="+rapidwords[index]["domain"],
+                                "class": "list-group-item list-group-item-action"// list-group-item-success"
+                            })
+                            value.append(rapidwords[index]["domain"])
+                            $("#hyponymResults").append(value)
+                        }
+                        }
+                        $('#'+id_name).on('show.bs.collapse', hyponym_function);
+                        if (sibling == search){
+                            hyponym_function();
+                        }
+                        });
                     if(rapidwords[search]["hypernyms"].length > 0){
                         let hypernym = rapidwords[search]["hypernyms"][0]
                         let hypernymsiblings = hypernym.indexOf(".")<0 ? top_level_rw :rapidwords[rapidwords[hypernym]["hypernyms"][0]]["hyponyms"];
                         for (const index of hypernymsiblings){
-                        let value = $("<a />",{
-                            "href": "?rw_search="+index+" "+rapidwords[index]["domain"],
-                            "class": "list-group-item list-group-item-action" + (index == hypernym? " list-group-item-success":"")
-                        })
-                        if (index == hypernym){
-                            /**
-                            value.append($("<i>", {
-                                "class": "bi-arrow-right"
-                            }))**/
-                           // value.append("&quot;"+category+"&quot; is included in ")
-                           value.append("<b>"+rapidwords[index]["domain"]+"</b> is the parent")
-                        } else {
-                            value.append(rapidwords[index]["domain"])
+                            let value = $("<a />",{
+                                "href": "?rw_search="+rapidwords[index]["domain"],
+                                "class": "list-group-item list-group-item-action" + (index == hypernym? " list-group-item-primary":"")
+                            })
+                            if (index == hypernym){
+                                /**
+                                value.append($("<i>", {
+                                    "class": "bi-arrow-right"
+                                }))**/
+                            // value.append("&quot;"+category+"&quot; is included in ")
+                            value.append("<b>"+rapidwords[index]["domain"]+"</b> is the parent")
+                            } else {
+                                value.append(rapidwords[index]["domain"])
+                            }
+                            $("#hypernymResults").append(value)
                         }
-                        $("#hypernymResults").append(value)
                     }
+                } else {
+                    let table = $("<table class=\"table table-striped\"></table>")
+                    let flexible_candidates = index.filter(([i, word]) => word.toLowerCase().includes(search.toLowerCase()))
+                    $("#content").empty().append($("<h3></h3>").text("Your category search produced "+(flexible_candidates.length > 0 ? "multiple": "no")+" results")).append(table);
+                    for (const [key, value] of flexible_candidates){
+                        table.append($("<tr></tr>").append($("<td></td>").append($("<a />",{
+                            "href": "?rw_search="+value,
+                            "text": key+" "+value
+                        }))))
                     }
                 }
-            })
+            }});
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script>
+        </script>
     </body>
     </html>
