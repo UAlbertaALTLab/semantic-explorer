@@ -73,7 +73,10 @@
 
             $.getJSON(API_URL+"wordnet-synset/?in_dictionary=true&wn="+encodeURIComponent(search), (synset) => {
             $("#entryMessage").empty()
-            let hypernyms = synset["hypernyms"]
+            let hypernyms = new Map(synset["hyponyms_of_hypernyms_of_hypernyms"].map((x) => [x["synset"],x["definition"]]))
+            synset["hypernyms"].forEach((x) => hypernyms.set(x["synset"],x["definition"]))
+            let parents = synset["hypernyms"].map((x) => x["synset"])
+            console.log(parents)
             let hyponyms  = synset["hyponyms"]
             let siblings = synset["hyponyms_of_hypernyms"]
 
@@ -158,17 +161,17 @@
                     hyponym_function();
                 }
                 });
-            if(hypernyms.length > 0){
-                for (const index of hypernyms){
+            if(hypernyms.size > 0){
+                for (const [synset, definition] of hypernyms.entries()){
                     let content = $("<div />",{
-                        "class": "list-group-item list-group-item-action",
+                        "class": "list-group-item list-group-item-action"+ (parents.includes(synset)? " list-group-item-primary":""),
                     });
                     content.append($("<a />",{
-                        "href": "?wn_search="+encodeURIComponent(index["synset"]),
+                        "href": "?wn_search="+encodeURIComponent(synset),
                         "class": "link-dark",
-                        "text": index["synset"]
+                        "html": parents.includes(synset)? "<b>"+synset+"</b><br /><i>(parent of "+search+")</i>": synset
                     }))
-                    content.append($("<p />").append($("<small />").text(index["definition"])))
+                    content.append($("<p />").append($("<small />").text(definition)))
                     $("#hypernymResults").append(content)
                 }
             }
