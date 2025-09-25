@@ -11,7 +11,7 @@
 <body>
     <script>
         var search = new URLSearchParams(window.location.search).get("wn_search")
-        var API_URL = "https://itwewina.altlab.dev/api/"
+        var API_URL = "http://localhost:8000/api/"
     </script>
     <nav class="navbar navbar-expand-sm bg-primary-subtle" >
         <div class="container-fluid">
@@ -71,7 +71,7 @@
             search = candidates[0]["synset"]
             definition = candidates[0]["definition"]
 
-            $.getJSON(API_URL+"wordnet-synset/?wn="+encodeURIComponent(search), (synset) => {
+            $.getJSON(API_URL+"wordnet-synset/?in_dictionary=true&wn="+encodeURIComponent(search), (synset) => {
             $("#entryMessage").empty()
             let hypernyms = synset["hypernyms"]
             let hyponyms  = synset["hyponyms"]
@@ -116,7 +116,7 @@
                     $("#accordionContents").append(item)
                     listgroup.append("(Loading, please wait ...)")
                     // Now get the JSON and fill up the siblings
-                    $.getJSON("https://itwewina.altlab.dev/api/wordnet-index/?wn="+encodeURIComponent(sibling["synset"]), (words) => {
+                    $.getJSON(API_URL+"wordnet-index/?wn="+encodeURIComponent(sibling["synset"]), (words) => {
                     listgroup.empty()
                     for (const word of words["results"]){
                         let value = $("<a />",{
