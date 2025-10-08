@@ -11,7 +11,8 @@
 <body>
     <script>
         var search = new URLSearchParams(window.location.search).get("wn_search")
-        var API_URL = "https://itwewina.altlab.dev/api/"
+        var API_URL = //"https://itwewina.altlab.dev/api/"
+        "http://localhost:8000/api/"
     </script>
     <nav class="navbar navbar-expand-sm bg-primary-subtle" >
         <div class="container-fluid">
@@ -71,28 +72,30 @@
             search = candidates[0]["synset"]
             definition = candidates[0]["definition"]
 
-            $.getJSON(API_URL+"wordnet-synset/?in_dictionary=true&wn="+encodeURIComponent(search), (synset) => {
-            $("#entryMessage").empty()
-            let hypernyms = new Map(synset["hyponyms_of_hypernyms_of_hypernyms"].map((x) => [x["synset"],x["definition"]]))
-            synset["hypernyms"].forEach((x) => hypernyms.set(x["synset"],x["definition"]))
-            let parents = synset["hypernyms"].map((x) => x["synset"])
-            console.log(parents)
-            let hyponyms  = synset["hyponyms"]
-            let siblings = synset["hyponyms_of_hypernyms"]
+            $.getJSON(API_URL+"wordnet-synset/?wn="+encodeURIComponent(search), (synset) => {
+                $("#entryMessage").empty()
+                let parents = synset["hypernyms"].map((x) => x["synset"])            
+                let hypernyms = new Map(synset["hypernyms"].map((x) => [x["synset"], x["definition"]]).concat(
+                    synset["hyponyms_of_hypernyms_of_hypernyms"].filter((x) => !parents.includes(x["synset"])).map((x) => [x["synset"],x["definition"]])))
+                synset["hypernyms"].forEach((x) => hypernyms.set(x["synset"],x["definition"]))
+                var siblings = synset["hyponyms_of_hypernyms"]
+                siblings = synset["hyponyms_of_hypernyms"].filter((x) => x["synset"] == search).concat(
+                    synset["hyponyms_of_hypernyms"].filter((x) => x["synset"] != search)
+                )
 
-            siblings.forEach( (sibling, sibling_index) =>{
-                let header = $("<h2>", {
-                    "class": "accordion-header"
-                })
-                let id_name = "collapse-sibling-"+sibling_index
-                let title = $("<button>", {
-                    "class": "accordion-button" + (sibling["synset"] == search ? "" : " collapsed"),
-                    "type": "button",
-                        "data-bs-toggle": "collapse",
-                    "data-bs-target": "#"+id_name,
-                        "aria-expanded": sibling["synset"] == search,
-                        "aria-controls": id_name,
+                siblings.forEach( (sibling, sibling_index) =>{
+                    let header = $("<h2>", {
+                        "class": "accordion-header"
                     })
+                    let id_name = "collapse-sibling-"+sibling_index
+                    let title = $("<button>", {
+                        "class": "accordion-button" + (sibling["synset"] == search ? "" : " collapsed"),
+                        "type": "button",
+                            "data-bs-toggle": "collapse",
+                        "data-bs-target": "#"+id_name,
+                            "aria-expanded": sibling["synset"] == search,
+                            "aria-controls": id_name,
+                        })
                     title.append(sibling["synset"])
                     header.append(title)
                     let contents = $("<div>", {
@@ -120,46 +123,64 @@
                     listgroup.append("(Loading, please wait ...)")
                     // Now get the JSON and fill up the siblings
                     $.getJSON(API_URL+"wordnet-index/?wn="+encodeURIComponent(sibling["synset"]), (words) => {
-                    listgroup.empty()
-                    for (const word of words["results"]){
-                        let value = $("<a />",{
-                            "href": "http://itwewina.altlab.app"+word["lemma_wordform"]["lemma_url"],
-                            "class": "list-group-item"
-                        })
-                        let heading = $("<div>", {
-                            "class": "d-flex w-100 justify-content-between"
-                        })
-                        heading.append("<h5 class=\"mb-1\">"+word["wordform_text"]+["</h5>"])
-                        value.append(heading)
-                        for (const defn of word["definitions"]){
-                            value.append("<p class=\"mb-1\">"+defn["text"]+"</p>")
+                        listgroup.empty()
+                        for (const word of words["results"]){
+                            let value = $("<a />",{
+                                "href": "http://itwewina.altlab.app"+word["lemma_wordform"]["lemma_url"],
+                                "class": "list-group-item"
+                            })
+                            let heading = $("<div>", {
+                                "class": "d-flex w-100 justify-content-between"
+                            })
+                            heading.append("<h5 class=\"mb-1\">"+word["wordform_text"]+["</h5>"])
+                            value.append(heading)
+                            for (const defn of word["definitions"]){
+                                value.append("<p class=\"mb-1\">"+defn["text"]+"</p>")
+                            }
+                            let synsets = word["lemma_wordform"]["synsets"].filter((x) => x != search)
+                            if (synsets.length > 0) {
+                                let alternatives = $("<small />", {"text": "Also one of "})
+                                for (const synset of synsets){
+                                    alternatives.append($("<a />", {
+                                        "href": "?wn_search="+encodeURIComponent(synset),
+                                        "text": synset
+                                    }))
+                                }
+                                let container = $("<p />", {
+                                    "class": "my-0"
+                                })
+                                container.append(alternatives)
+                                value.append(container)
+                            }
+                            listgroup.append(value)
                         }
-                        listgroup.append(value)
-                    }
                     listgroup.append("<p>There might be more words in the subcategories of "+sibling["synset"]+".</p>")
-                })
-                let hyponym_function = function () {
-                    // console.log("action on "+id_name)
-                    $("#hyponymResults").empty();
-                    $("#hyponyms_title").empty();
-                    $("#hyponyms_title").append("nitânisak / daughters")
-                    for (const index of hyponyms){
-                    let content = $("<div />",{
-                        "class": "list-group-item list-group-item-action",
-                    });
-                    content.append($("<a />",{
-                        "href": "?wn_search="+encodeURIComponent(index["synset"]),
-                        "class": "link-dark",
-                        "text": index["synset"]
-                    }))
-                    content.append($("<p />").append($("<small />").text(index["definition"])))
-                    $("#hyponymResults").append(content)
-                }
-                }
-                $('#'+id_name).on('show.bs.collapse', hyponym_function);
-                if (sibling["synset"] == search){
-                    hyponym_function();
-                }
+                    let hyponym_function = function (name) {
+                        // console.log("action on "+id_name)
+                        $("#hyponymResults").empty();
+                        $("#hyponyms_title").empty();
+                        $("#hyponyms_title").append("nitânisak / daughters")
+                        let hyponyms  = words["hyponyms"]
+                        hyponyms.sort((a, b) => b["wordform_closure_count"] - a["wordform_closure_count"])
+
+                        for (const index of hyponyms){
+                            let content = $("<div />",{
+                                "class": "list-group-item list-group-item-action" + (index["wordform_closure_count"] > 0 ? (index["wordform_count"] > 0 ? "" : "" ) : " list-group-item-secondary"),
+                            });
+                            content.append($("<a />",{
+                                "href": index["wordform_closure_count"] > 0 ? "?wn_search="+encodeURIComponent(index["synset"]) : "#",
+                                "class": "link-dark",
+                                "text": index["synset"]
+                            }))
+                            content.append($("<p />").append($("<small />").text(index["definition"])))
+                            $("#hyponymResults").append(content)
+                        }
+                    }
+                    $('#'+id_name).on('show.bs.collapse', () => hyponym_function(sibling["synset"]));                    
+                    if (sibling["synset"] == search){
+                        hyponym_function(search);
+                    }
+                    })
                 });
             if(hypernyms.size > 0){
                 for (const [synset, definition] of hypernyms.entries()){
