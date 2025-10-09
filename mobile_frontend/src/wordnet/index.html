@@ -74,9 +74,8 @@
             $.getJSON(API_URL+"wordnet-synset/?wn="+encodeURIComponent(search), (synset) => {
                 $("#entryMessage").empty()
                 let parents = synset["hypernyms"].map((x) => x["synset"])            
-                let hypernyms = new Map(synset["hypernyms"].map((x) => [x["synset"], x["definition"]]).concat(
-                    synset["hyponyms_of_hypernyms_of_hypernyms"].filter((x) => !parents.includes(x["synset"])).map((x) => [x["synset"],x["definition"]])))
-                synset["hypernyms"].forEach((x) => hypernyms.set(x["synset"],x["definition"]))
+                let hypernyms = synset["hypernyms"].concat(
+                    synset["hyponyms_of_hypernyms_of_hypernyms"].filter((x) => !parents.includes(x["synset"])))
                 var siblings = synset["hyponyms_of_hypernyms"]
                 siblings = synset["hyponyms_of_hypernyms"].filter((x) => x["synset"] == search).concat(
                     synset["hyponyms_of_hypernyms"].filter((x) => x["synset"] != search)
@@ -95,7 +94,8 @@
                             "aria-expanded": sibling["synset"] == search,
                             "aria-controls": id_name,
                         })
-                    title.append(sibling["synset"])
+                    title.append("<div class=\"d-flex container ps-0\"><div class=\"ms-0 me-auto\">"+sibling["synset"]+"</div><span class=\"badge text-bg-light rounded-pill\">"+sibling["wordform_count"]+"</span></div>")
+
                     header.append(title)
                     let contents = $("<div>", {
                         "id": id_name,
@@ -131,7 +131,7 @@
                             let heading = $("<div>", {
                                 "class": "d-flex w-100 justify-content-between"
                             })
-                            heading.append("<h5 class=\"mb-1\">"+word["wordform_text"]+["</h5>"])
+                            heading.append("<h5 class=\"mb-1\">"+word["wordform_text"]+"</h5>")
                             value.append(heading)
                             for (const defn of word["definitions"]){
                                 value.append("<p class=\"mb-1\">"+defn["text"]+"</p>")
@@ -168,9 +168,9 @@
                             });
                             content.append($("<a />",{
                                 "href": index["wordform_closure_count"] > 0 ? "?wn_search="+encodeURIComponent(index["synset"]) : "#",
-                                "class": "link-dark",
-                                "text": index["synset"]
-                            }))
+                                "class": "link-dark align-items-start d-flex",
+                                "html": "<div class=\"ms-0 me-auto\">"+index["synset"]+"</div>"
+                            }).append("<span class=\"badge text-bg-light rounded-pill\">"+index["wordform_count"]+"</span>"))
                             content.append($("<p />").append($("<small />").text(index["definition"])))
                             $("#hyponymResults").append(content)
                         }
@@ -181,17 +181,21 @@
                     }
                     })
                 });
-            if(hypernyms.size > 0){
-                for (const [synset, definition] of hypernyms.entries()){
+            if(hypernyms.length > 0){
+                for (const hypernym of hypernyms){
+                    let synset = hypernym["synset"]
                     let content = $("<div />",{
                         "class": "list-group-item list-group-item-action"+ (parents.includes(synset)? " list-group-item-primary":""),
                     });
                     content.append($("<a />",{
                         "href": "?wn_search="+encodeURIComponent(synset),
-                        "class": "link-dark",
-                        "html": parents.includes(synset)? "<b>"+synset+"</b><br /><i>(parent of "+search+")</i>": synset
-                    }))
-                    content.append($("<p />").append($("<small />").text(definition)))
+                        "class": "link-dark align-items-start d-flex",
+                    }).append($("<div />", {
+                        "class": "ms-0 me-auto"
+                    }).html(parents.includes(synset)? "<b>"+synset+"</b><br /><i>(parent of "+search+")</i>": synset))
+                    .append("<span class=\"badge text-bg-light rounded-pill\">"+hypernym["wordform_count"]+"</span>"))
+                    
+                    content.append($("<p />").append($("<small />").text(hypernym["definition"])))
                     $("#hypernymResults").append(content)
                 }
             }
