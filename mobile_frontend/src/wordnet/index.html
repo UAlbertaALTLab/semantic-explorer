@@ -201,7 +201,7 @@
             }
         })} else {
             let table = $("<table class=\"table table-striped\"></table>")
-            $("#content").empty().append($("<h3></h3>").text("Your category search produced "+(candidates.length > 0 ? "multiple": "no")+" results")).append(table);
+            $("#content").empty().append($("<h3></h3>").text("Your \""+search+"\" search produced "+(candidates.length > 0 ? "multiple": "no")+" results")).append(table);
             for (const candidate of candidates){
                 table.append($("<tr></tr>").append($("<td></td>").append($("<a />",{
                     "href": "?wn_search="+encodeURIComponent(candidate["synset"]),
