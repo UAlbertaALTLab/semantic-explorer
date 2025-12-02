@@ -1,5 +1,5 @@
 # vocabulary-explorer
-[Vocabulary Explorer (ALTLab, U of A)](https://semanticexplorer.altlab.dev/)
+[Vocabulary Explorer (ALTLab, U of A)](https://vocabulary.altlab.dev/)
 
 [![Deploy Mkdocs](https://github.com/UAlberta-CMPUT401/vocabulary-explorer/actions/workflows/deploy-mkdocs.yml/badge.svg)](https://github.com/UAlberta-CMPUT401/vocabulary-explorer/actions/workflows/deploy-mkdocs.yml/badge.svg)
 [![ReactCI](https://github.com/UAlberta-CMPUT401/vocabulary-explorer/actions/workflows/ReactCI.yml/badge.svg)](https://github.com/UAlberta-CMPUT401/vocabulary-explorer/actions/workflows/ReactCI.yml/badge.svg)
